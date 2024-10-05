@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8"/>
     <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
@@ -7,8 +7,49 @@
     <link rel="stylesheet" href="style.css">
     <title>Vite App</title>
 </head>
-<body>
-<h1>Test</h1>
+<body class="container mx-auto">
+<nav class="navbar bg-base-100">
+    <div class="navbar-start">
+        <a class="btn btn-ghost">
+            <img src="/logo.webp" alt="logo">
+            <h2 class="text-3xl font-bold">Peddy</h2>
+        </a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+            <li><a>Home</a></li>
+            <li><a>Shop</a></li>
+            <li><a>Contact</a></li>
+        </ul>
+    </div>
+    <div class="navbar-end">
+        <a class="cursor-pointer">
+            <img src="/profile-icon.png" width="50" alt="profile-icon">
+        </a>
+    </div>
+</nav>
+<section class="mt-10">
+    <div class="hero min-h-screen items-start">
+        <div class="hero-content text-center">
+            <div class="max-w-screen-lg">
+                <p class="text-gray-500 text-2xl font-semibold py-4">Bringing Families Together ❤️‍🔥 </p>
+                <h1 class="text-4xl lg:text-8xl font-bold">Your Path to Adoption Starts Here</h1>
+                <p class="py-6 text-lg text-neutral">
+                    "Peddy" is a platform dedicated to connecting loving families with pets
+                    in need of a home. Whether you're looking to adopt a dog, cat, or any other companion, we guide you
+                    through the entire process, making it easy to find your perfect match. With resources on pet care,
+                    adoption tips, and a user-friendly search feature, we’re here to ensure every pet finds their
+                    forever home
+                </p>
+                <button class="btn btn-lg bg-cyan-700 rounded-xl text-white hover:text-black">View More</button>
+                <div class="pt-10">
+                    <img src="/pet.webp" alt="pet-hero-img" class="object-cover w-full">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div id="app"></div>
 <script type="module" src="/main.js"></script>
 </body>
