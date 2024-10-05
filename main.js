@@ -15,7 +15,7 @@ const displayCategoriesButton = async () => {
 
     categories.map((item) => {
         const button = document.createElement("button")
-        button.className = "border border-gray-300 px-8 py-2 text-2xl font-semibold gap-4 rounded-lg flex w-44 lg:w-64 justify-center items-center"
+        button.className = "border border-gray-300 px-8 py-2 text-2xl font-semibold gap-4 rounded-lg flex w-40 lg:w-64 justify-center items-center"
         button.innerHTML = ` <img src=${item.category_icon} alt=${item.category}> ${item.category}s`
         button.id = `${item.id}`
         button.type = "button"
