@@ -162,22 +162,39 @@ const noPetsCard = ` <div class="lg:col-span-3 rounded-2xl mx-4 py-10 bg-base-20
 
 const displayPetsByCategory = async (category) => {
     const pets = await fetchByCategory(category)
-    const petsListDiv = document.getElementById("pets-list-div")
+    const petsListDiv = document.getElementById("pets-list-div");
+    const petsContainer = document.getElementById("pets-container");
+    const likedPetsContainer = document.getElementById("liked-pets-container");
+    const petsOuterContainer = document.getElementById("pets-outer-container");
+
+    petsContainer.classList.add("hidden");
+
+    petsOuterContainer.innerHTML = loader;
+
     petsListDiv.innerHTML = "";
 
-    if (pets.length === 0) {
-        petsListDiv.innerHTML = noPetsCard;
-    }
+    setTimeout(()=>{
+        petsContainer.classList.remove("hidden");
 
-    pets.map((pet) => {
+        petsOuterContainer.innerHTML = '';
+        petsOuterContainer.appendChild(petsContainer);
+        petsListDiv.innerHTML = "";
+        likedPetsContainer.classList.add("lg:block");
 
-        console.log(pet)
-        petsListDiv.innerHTML += petCard(pet);
-    })
+        if (pets.length === 0) {
+            petsListDiv.innerHTML = noPetsCard;
+        }
 
-    document.querySelectorAll('.like-button').forEach(button => {
-        button.addEventListener('click', handleLikeClick);
-    });
+        pets.map((pet) => {
+            console.log(pet)
+            petsListDiv.innerHTML += petCard(pet);
+        })
+
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', handleLikeClick);
+        });
+
+    }, 2000)
 }
 
 
