@@ -74,19 +74,22 @@
         </button>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 pt-10">
-        <div id="pets-list-div"
-             class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mx-auto lg:mx-0 lg:max-w-none">
-            <!--            Dynamic Pets List-->
-        </div>
+    <div id="pets-outer-container">
+        <div id="pets-container" class="grid grid-cols-1 lg:grid-cols-4 gap-10 pt-10">
+            <div id="pets-list-div"
+                 class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mx-auto lg:mx-0 lg:max-w-none">
+                <!--            Dynamic Pets List-->
+            </div>
 
-        <div class="card border  hidden lg:block lg:col-span-1 max-h-[calc(100dvh-300px)] sticky top-10 overflow-y-scroll">
-            <div id="liked-pets-div" class="grid grid-cols-2">
-                <!--            Dynamic Liked Pets-->
+            <div id="liked-pets-container" class="card border  hidden lg:block lg:col-span-1 max-h-[calc(100dvh-300px)] sticky top-10 overflow-y-scroll">
+                <div id="liked-pets-div" class="grid grid-cols-2">
+                    <!--            Dynamic Liked Pets-->
+                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <button class="btn hidden" onclick="my_modal_1.showModal()">open modal</button>
 <dialog id="my_modal_1" class="modal">

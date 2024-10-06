@@ -91,17 +91,33 @@ const petCard = (pet) => `
         `;
 
 const displayAllPets = async () => {
-    const pets = await fetchAllPets()
-    const petsListDiv = document.getElementById("pets-list-div")
-    petsListDiv.innerHTML = "";
+    const pets = await fetchAllPets();
+    const petsListDiv = document.getElementById("pets-list-div");
+    const petsContainer = document.getElementById("pets-container");
+    const likedPetsContainer = document.getElementById("liked-pets-container");
+    const petsOuterContainer = document.getElementById("pets-outer-container");
 
-    pets.forEach(pet => {
-        petsListDiv.innerHTML += petCard(pet);
-    });
 
-    document.querySelectorAll('.like-button').forEach(button => {
-        button.addEventListener('click', handleLikeClick);
-    });
+    petsContainer.classList.add("hidden");
+
+    petsOuterContainer.innerHTML = loader;
+
+    setTimeout(() => {
+        petsContainer.classList.remove("hidden");
+
+        petsOuterContainer.innerHTML = '';
+        petsOuterContainer.appendChild(petsContainer);
+        petsListDiv.innerHTML = "";
+        likedPetsContainer.classList.add("lg:block");
+
+        pets.forEach(pet => {
+            petsListDiv.innerHTML += petCard(pet);
+        });
+
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', handleLikeClick);
+        });
+    }, 2000);
 
 }
 const handleLikeClick = (event) => {
@@ -163,6 +179,14 @@ const displayPetsByCategory = async (category) => {
         button.addEventListener('click', handleLikeClick);
     });
 }
+
+
+const loader = `
+<div class="min-h-[calc(100vh-300px)] w-full flex justify-center items-center">
+    <div class="w-32 h-32 flex justify-center items-center animate-ping border-8 border-green-600 rounded-full">
+        Loading...
+    </div>
+</div>`;
 
 window.showPetDetails = async (petId) => {
     console.log(typeof petId)
