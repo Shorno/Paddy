@@ -73,11 +73,11 @@ const petCard = (pet) => `
                     </div>
                     <hr>
                     <div class="flex gap-2 justify-between mt-4 text-xl text-cyan-700 font-semibold">
-                        <button onclick="handleLikeClick()" type="button" class="h-10 w-14 border rounded-lg border-cyan-700/20 flex items-center justify-center p-4 like-button" data-pet-id="${pet.image}" id="${pet.image}">
+                        <button onclick="handleLikeClick()" type="button" class="h-10 w-14 border rounded-lg border-cyan-700/20 flex items-center justify-center p-4 like-button" data-image="${pet.image}"">
                             <img src="/like-icon.png" alt="like-icon">
                         </button>
                         <button type="button" class="px-6 h-10 border rounded-lg border-cyan-700/20">Adopt</button>
-                        <button type="button" class="px-6 h-10 border rounded-lg border-cyan-700/20">Details</button>
+                        <button onclick="showPetDetails(${pet.petId})" id="details" type="button" class="px-6 h-10 border rounded-lg border-cyan-700/20">Details</button>
                     </div>
                 </div>
             </div>
@@ -100,12 +100,12 @@ const displayAllPets = async () => {
 const handleLikeClick = (event) => {
     const likedPetsDiv = document.getElementById("liked-pets-div")
     event.currentTarget.classList.add("bg-blue-400")
-    likedPetsDiv.innerHTML += `<div class="flex p-4 h-32"><img src=${event.currentTarget.dataset.petId} class="w-full rounded-md  object-cover" alt="fav pet image"> </div>`
+    console.log(event.currentTarget.dataset)
+    likedPetsDiv.innerHTML += `<div class="flex p-4 h-32"><img src=${event.currentTarget.dataset.image} class="w-full rounded-md  object-cover" alt="fav pet image"> </div>`
 }
 
 
 const sortByPrice = async () => {
-    console.log("sort button clicked")
     const pets = await fetchAllPets()
     const petsListDiv = document.getElementById("pets-list-div")
 
@@ -142,7 +142,7 @@ const displayPetsByCategory = async (category) => {
     const petsListDiv = document.getElementById("pets-list-div")
     petsListDiv.innerHTML = "";
 
-    if (pets.length === 0){
+    if (pets.length === 0) {
         petsListDiv.innerHTML = noPetsCard;
     }
 
@@ -157,6 +157,74 @@ const displayPetsByCategory = async (category) => {
     });
 }
 
+window.showPetDetails = async (petId) => {
+    console.log(typeof petId)
+    const modal = document.getElementById("my_modal_1");
+
+    const response = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`);
+    const {petData: pet} = await response.json()
+
+    modal.innerHTML = `
+    <div class="modal-box">
+        <div class="bg-white rounded-lg overflow-hidden">
+            <div class="relative">
+                <img src="${pet.image}" alt="${pet.pet_name}" class="w-full h-48 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-16"></div>
+            </div>
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-4">${pet.pet_name}</h2>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        <span class="text-sm text-gray-600">Breed: ${pet.breed || 'Info missing'}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span class="text-sm text-gray-600">Birth: ${pet.date_of_birth ? new Date(pet.date_of_birth).toLocaleDateString("en-us", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+    }) : 'Info missing'}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <span class="text-sm text-gray-600">Gender: ${pet.gender || 'Info missing'}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-sm text-gray-600">Price: ${pet.price ? `${pet.price}$` : 'Not available'}</span>
+                    </div>
+                </div>
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-sm text-gray-600">Vaccinated status: ${pet.vaccinated_status}</span>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-2">Details Information</h3>
+                    <p class="text-sm text-gray-600">${pet.pet_details || 'No additional information available.'}</p>
+                </div>
+                <div class="modal-action">
+                    <form method="dialog" class="w-full">
+                        <button class="btn btn-block border border-cyan-700/25 text-cyan-700">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+
+    modal.showModal();
+};
 
 displayAllPets()
 
