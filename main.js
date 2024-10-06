@@ -30,7 +30,11 @@ const displayCategoriesButton = async () => {
         button.innerHTML = ` <img src=${item.category_icon} alt=${item.category}> ${item.category}s`
         button.id = `${item.id}`
         button.type = "button"
-        button.onclick = () => displayPetsByCategory(item.category)
+        button.onclick = () => {
+            document.querySelectorAll("button").forEach((btn) => btn.classList.remove("bg-teal-700/30", "rounded-full", "border-2", "border-teal-700"))
+            displayPetsByCategory(item.category)
+            button.classList.add("bg-teal-700/30", "rounded-full", "border-2", "border-teal-700")
+        }
         categoriesDiv.appendChild(button)
     })
 }
