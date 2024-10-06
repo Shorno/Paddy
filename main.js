@@ -1,6 +1,5 @@
 const categoriesAPI = "https://openapi.programming-hero.com/api/peddy/categories"
 const allPetsAPI = "https://openapi.programming-hero.com/api/peddy/pets"
-const singleCategoryPetAPI = "https://openapi.programming-hero.com/api/peddy/category/"
 
 const fetchCategories = async () => {
     const response = await fetch(categoriesAPI);
@@ -37,7 +36,7 @@ const displayCategoriesButton = async () => {
 }
 
 const petCard = (pet) => `
-            <div class="card max-w-96 bg-base-100 border">
+            <div class="card max-w-96 bg-ba se-100 border">
                 <figure class="p-4">
                     <img src="${pet.image}" alt="Pets" class="w-full rounded-md h-48 object-cover"/>
                 </figure>
@@ -99,9 +98,9 @@ const displayAllPets = async () => {
 
 }
 const handleLikeClick = (event) => {
-    console.log("Like button clicked for pet:", event.currentTarget.dataset.petId);
     const likedPetsDiv = document.getElementById("liked-pets-div")
-    likedPetsDiv.innerHTML += `<div class="flex p-4 h-32"><img src=${event.currentTarget.dataset.petId} class="w-full rounded-md  object-cover"> </div>`
+    event.currentTarget.classList.add("bg-blue-400")
+    likedPetsDiv.innerHTML += `<div class="flex p-4 h-32"><img src=${event.currentTarget.dataset.petId} class="w-full rounded-md  object-cover" alt="fav pet image"> </div>`
 }
 
 
@@ -126,13 +125,30 @@ const sortByPrice = async () => {
 const sortButton = document.getElementById("sort-button")
 sortButton.addEventListener("click", sortByPrice)
 
+const noPetsCard = ` <div class="lg:col-span-3 rounded-2xl mx-4 py-10 bg-base-200 border min-h-[calc(100dvh-300px)] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:mx-0 lg:max-w-none">
+<div class="grid col-span-4 place-items-center">
+ <div class="flex flex-col justify-center items-center">
+ <img src="/no-info.png" class="w-1/2" alt="no info img">
+ <h1 class="text-xl lg:text-5xl font-bold text-center mt-10">Sorry no information available</h1>
+ <p class="px-4 text-lg pt-10 text-center">Check out other categories to find you next best friend.</p>
+</div>
+</div>
+
+
+</div>`
 
 const displayPetsByCategory = async (category) => {
     const pets = await fetchByCategory(category)
     const petsListDiv = document.getElementById("pets-list-div")
     petsListDiv.innerHTML = "";
 
+    if (pets.length === 0){
+        petsListDiv.innerHTML = noPetsCard;
+    }
+
     pets.map((pet) => {
+
+        console.log(pet)
         petsListDiv.innerHTML += petCard(pet);
     })
 
