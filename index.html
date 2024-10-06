@@ -41,7 +41,8 @@
                     adoption tips, and a user-friendly search feature, we’re here to ensure every pet finds their
                     forever home
                 </p>
-                <button class="btn lg:btn-lg bg-cyan-700 rounded-xl text-white hover:text-black">View More</button>
+                <a href="#best_deals" class="btn lg:btn-lg bg-cyan-700 rounded-xl text-white hover:text-black">View
+                    More</a>
                 <div class="pt-10">
                     <img src="/pet.webp" alt="pet-hero-img" class="object-cover w-full">
                 </div>
@@ -65,15 +66,26 @@
     </div>
 </section>
 
-<section class="pb-10">
-    <div class="flex justify-between items-center px-4 lg:px-0">
+<section id="best_deals" class="pb-10">
+    <div class="flex justify-between items-center px-8 lg:px-0">
         <h2 class="lg:text-2xl font-semibold">Best Deal For you</h2>
         <button class="btn lg:px-10 bg-cyan-700 rounded-xl text-white  lg:text-xl hover:text-black">Sort by Price
         </button>
     </div>
-    <div id="pets-list-div" class="mt-10 flex flex-wrap gap-8 px-8 lg:px-0 justify-center lg:justify-start">
-        <!--        Dynamic pets list goes here-->
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 pt-10">
+        <div id="pets-list-div"
+             class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto lg:mx-0 lg:max-w-none">
+            <!--            Dynamic Pets List-->
+        </div>
+
+        <div class="card border  hidden lg:block lg:col-span-1 max-h-[calc(100dvh-300px)] sticky top-10 overflow-y-scroll">
+            <div id="liked-pets-div" class="grid grid-cols-2">
+                <!--            Dynamic Liked Pets-->
+            </div>
+        </div>
     </div>
+
 </section>
 
 <div id="app"></div>

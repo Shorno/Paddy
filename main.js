@@ -37,7 +37,7 @@ const displayAllPets = async () => {
 
     pets.forEach(pet => {
         const petCard = `
-            <div class="card w-96 bg-base-100 border">
+            <div class="card max-w-96 bg-base-100 border">
                 <figure class="p-4">
                     <img src="${pet.image}" alt="Pets" class="w-full rounded-md h-48 object-cover"/>
                 </figure>
@@ -72,11 +72,11 @@ const displayAllPets = async () => {
                     </div>
                     <hr>
                     <div class="flex gap-2 justify-between mt-4 text-xl text-cyan-700 font-semibold">
-                        <button class="h-10 w-16 border rounded-lg border-cyan-700/20 flex items-center justify-center p-4">
+                        <button onclick="handleLikeClick()" type="button" class="h-10 w-14 border rounded-lg border-cyan-700/20 flex items-center justify-center p-4 like-button" data-pet-id="${pet.image}" id="${pet.image}">
                             <img src="/like-icon.png" alt="like-icon">
                         </button>
-                        <button class="px-6 h-10 border rounded-lg border-cyan-700/20">Adopt</button>
-                        <button class="px-6 h-10 border rounded-lg border-cyan-700/20">Details</button>
+                        <button type="button" class="px-6 h-10 border rounded-lg border-cyan-700/20">Adopt</button>
+                        <button type="button" class="px-6 h-10 border rounded-lg border-cyan-700/20">Details</button>
                     </div>
                 </div>
             </div>
@@ -84,9 +84,16 @@ const displayAllPets = async () => {
         petsListDiv.innerHTML += petCard;
     });
 
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', handleLikeClick);
+    });
 
 }
-
+const handleLikeClick = (event) => {
+    console.log("Like button clicked for pet:", event.currentTarget.dataset.petId);
+    const likedPetsDiv = document.getElementById("liked-pets-div")
+    likedPetsDiv.innerHTML += `<div class="flex p-4 h-32"><img src=${event.currentTarget.dataset.petId} class="w-full rounded-md  object-cover"> </div>`
+}
 
 
 displayAllPets()
