@@ -135,6 +135,10 @@ const displayPetsByCategory = async (category) => {
     pets.map((pet) => {
         petsListDiv.innerHTML += petCard(pet);
     })
+
+    document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', handleLikeClick);
+    });
 }
 
 
