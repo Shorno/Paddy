@@ -91,9 +91,24 @@
 </section>
 
 
-<button class="btn hidden" onclick="my_modal_1.showModal()">open modal</button>
+<button class="btn hidden" onclick="my_modal_1.showModal()">details modal</button>
 <dialog id="my_modal_1" class="modal">
 <!--    Dynamic Modal Details-->
+</dialog>
+
+<!-- Open the modal using ID.showModal() method -->
+<button class="btn" onclick="my_modal_2.showModal()">congrats modal</button>
+<dialog id="my_modal_2" class="modal">
+    <div class="modal-box flex flex-col justify-center items-center">
+        <img src="/handshake-deal-svgrepo-com.svg"  class="w-32" alt="handshake icon">
+        <h3 class="text-4xl font-bold">Congrats!</h3>
+        <p class="py-4 font-semibold lg:text-lg text-sm">Adoption process for your pet will start soon.</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <p class="text-4xl font-bold" id="countdown-display"></p>
+            </form>
+        </div>
+    </div>
 </dialog>
 <div id="app"></div>
 <script type="module" src="/main.js"></script>
