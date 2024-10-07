@@ -26,16 +26,21 @@ const displayCategoriesButton = async () => {
 
     categories.forEach((item) => {
         const button = document.createElement("button")
-        button.className = "border border-gray-300 px-8  py-2 text-2xl font-semibold gap-4 rounded-lg flex w-40 lg:w-64 justify-center items-center"
-        button.innerHTML = ` <img src=${item.category_icon} alt=${item.category}> ${item.category}s`
-        button.id = `${item.id}`
-        button.type = "button"
+        button.className = "border border-gray-300 px-8 py-2 text-2xl font-semibold gap-4 rounded-xl flex w-40 lg:w-64 justify-center items-center";
+        button.innerHTML = `<img src=${item.category_icon} alt=${item.category}> ${item.category}s`;
+        button.id = `${item.id}`;
+        button.type = "button";
         button.onclick = () => {
-            document.querySelectorAll("button").forEach((btn) => btn.classList.remove("bg-teal-700/30", "rounded-full", "border-2", "border-teal-700"))
-            displayPetsByCategory(item.category)
-            button.classList.add("bg-teal-700/30", "rounded-full", "border-2", "border-teal-700")
-        }
+            document.querySelectorAll("button").forEach((btn) => {
+                btn.classList.remove("bg-teal-700/30", "rounded-full", "border-2", "border-teal-700");
+                btn.classList.add("rounded-xl");
+            });
+            displayPetsByCategory(item.category);
+            button.classList.add("bg-teal-700/30", "rounded-full", "border-2", "border-teal-700");
+            button.classList.remove("rounded-xl");
+        };
         categoriesDiv.appendChild(button)
+
     })
 }
 
