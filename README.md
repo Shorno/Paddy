@@ -20,7 +20,7 @@ Peddy is a platform dedicated to connecting loving families with pets in need of
 
 ## Live Link
 
-Check out the live project https://paddy-jet.vercel.app/
+Check out the live project https://paddy-live.netlify.app/
 
 ## Usage
 
